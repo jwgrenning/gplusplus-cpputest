@@ -1,8 +1,8 @@
 
 {
   "visible_filenames": [
-    "HikerTest.cpp",
-    "AllTests.cpp",
+    "tests/HikerTest.cpp",
+    "tests/AllTests.cpp",
     "Hiker.cpp",
     "Hiker.hpp",
     "cyber-dojo.sh",
