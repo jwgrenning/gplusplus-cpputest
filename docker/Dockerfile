@@ -1,8 +1,8 @@
-FROM       cyberdojofoundation/gplusplus:7.1
-MAINTAINER Jon Jagger <jon@jaggersoft.com>
+FROM  cyberdojofoundation/gplusplus:7.1
+LABEL maintainer=jon@jaggersoft.com
 
 RUN apt-get update
-RUN apt-get install -y automake autoconf libtool
+RUN apt-get install --yes automake autoconf libtool git
 
 WORKDIR /
 RUN git clone https://github.com/cpputest/cpputest.git
