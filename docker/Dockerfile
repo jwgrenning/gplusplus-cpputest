@@ -7,9 +7,9 @@ RUN apt-get install --yes automake autoconf libtool git
 WORKDIR /
 RUN git clone https://github.com/cpputest/cpputest.git
 
-WORKDIR cpputest/cpputest_build
-RUN autoreconf .. -i
-RUN ../configure
+WORKDIR cpputest/
+RUN autoreconf . -i
+RUN ./configure
 RUN make
 
 WORKDIR /
