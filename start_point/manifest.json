@@ -21,6 +21,6 @@
     "OK \\((\\d)+ tests, (\\d)+ ran, (\\d)+ checks, (\\d)+ ignored, (\\d)+ filtered out, (\\d)+ ms\\)"
   ],
 
-  "runner_choice": "stateless"
+  "runner_choice": "stateful"
 
 }
