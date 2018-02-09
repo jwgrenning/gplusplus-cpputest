@@ -1,4 +1,4 @@
-FROM  cyberdojofoundation/gplusplus:7.3.0
+FROM  cyberdojofoundation/gplusplus
 LABEL maintainer=jon@jaggersoft.com
 
 RUN apt-get update
