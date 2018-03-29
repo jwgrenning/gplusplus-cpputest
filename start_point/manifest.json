@@ -15,7 +15,7 @@
 
   "runner_choice": "stateful",
 
-  "filename_extension" : ".cpp",
+  "filename_extension": [ ".cpp", ".hpp" ],
 
   "progress_regexs" : [
     "Errors \\((\\d)+ failures, (\\d)+ tests, (\\d)+ ran, (\\d)+ checks, (\\d)+ ignored, (\\d)+ filtered out, (\\d)+ ms\\)",
