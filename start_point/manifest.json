@@ -13,11 +13,11 @@
 
   "image_name": "cyberdojofoundation/gpp_cpputest",
 
-  "runner_choice": "stateful",
+  "runner_choice": "stateless",
 
   "filename_extension": [ ".cpp", ".hpp" ],
 
-  "hidden_filenames": [ "objs/" ],
+  "hidden_filenames": [ "objs/.*" ],
 
   "progress_regexs" : [
     "Errors \\((\\d)+ failures, (\\d)+ tests, (\\d)+ ran, (\\d)+ checks, (\\d)+ ignored, (\\d)+ filtered out, (\\d)+ ms\\)",
