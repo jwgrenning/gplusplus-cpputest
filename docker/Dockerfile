@@ -1,8 +1,12 @@
 FROM  cyberdojofoundation/gplusplus
 LABEL maintainer=jon@jaggersoft.com
 
-RUN apt-get update
-RUN apt-get install --yes automake autoconf libtool git
+RUN apt-get update \
+ && apt-get install --yes \
+    automake \
+    autoconf \
+    libtool \
+    git
 
 WORKDIR /
 RUN git clone https://github.com/cpputest/cpputest.git
