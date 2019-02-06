@@ -16,7 +16,7 @@ INCLUDE_DIRS =\
 	.\
 	$(CPPUTEST_HOME)/include/ \
 
-CXXFLAGS += -Wall -Werror -Wswitch-default -Wfatal-errors
+CXXFLAGS += -Wall -Wswitch-default -Wfatal-errors
 CXXFLAGS += -std=c++17
 CFLAGS += -std=c99
 
