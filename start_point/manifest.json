@@ -13,8 +13,6 @@
 
   "image_name": "cyberdojofoundation/gpp_cpputest",
 
-  "runner_choice": "stateless",
-
   "filename_extension": [ ".cpp", ".hpp" ],
 
   "hidden_filenames": [ "objs/.*" ],
