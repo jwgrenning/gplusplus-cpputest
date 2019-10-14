@@ -13,7 +13,7 @@
 
   "image_name": "cyberdojofoundation/gpp_cpputest",
 
-  "filename_extension": [ ".cpp", ".hpp" ],
+  "filename_extension": [ ".cpp", ".hpp", ".c", ".h" ],
 
   "hidden_filenames": [ "objs/.*" ],
 
