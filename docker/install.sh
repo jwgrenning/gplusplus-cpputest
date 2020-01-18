@@ -3,15 +3,16 @@
 src_install()
 {
   apt-get update
-  apt-get install --yes autoconf automake git libtool
   cd /
+  apt-get install --yes git
   git clone https://github.com/cpputest/cpputest.git
+  apt-get remove  --yes git
+
+  apt-get install --yes autoconf automake git libtool
   cd cpputest/
   autoreconf . -i
   ./configure
   make
-  apt-get remove --yes git
 }
 
-#src_install
-apt-get install --yes cpputest
+src_install

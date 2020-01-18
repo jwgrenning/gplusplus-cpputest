@@ -3,6 +3,4 @@ LABEL maintainer=jon@jaggersoft.com
 
 COPY install.sh .
 RUN ./install.sh
-# RUN dpkg -L cpputest  # /usr/share/cpputest
-
 COPY red_amber_green.rb /usr/local/bin
