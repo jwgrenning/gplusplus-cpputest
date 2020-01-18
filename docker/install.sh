@@ -9,10 +9,13 @@ src_install()
   apt-get remove  --yes git
 
   apt-get install --yes autoconf automake git libtool
-  cd cpputest/
-  autoreconf . -i
-  ./configure
+  cd cpputest
+  ./autogen.sh # This is giving errors about missing file ./ltmain.sh
+  mkdir a_build_dir
+  cd a_build_dir
+  ../configure
   make
+  make check
 }
 
 src_install

@@ -15,10 +15,4 @@ LABEL maintainer=jon@jaggersoft.com
 
 COPY install.sh .
 RUN ./install.sh
-
-#RUN dpkg -L cpputest  # /usr/share/cpputest
-#RUN ls -al /usr/share/cpputest/scripts
-#RUN sdsd
-
-
 COPY red_amber_green.rb /usr/local/bin
