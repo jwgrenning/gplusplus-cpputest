@@ -1,22 +1,28 @@
 #!/bin/bash -Eeu
 
 readonly MY_DIR="$( cd "$( dirname "${0}" )" && pwd )"
-readonly TMP_DIR="$(mktemp -d /tmp/cyber-dojo-languages.XXXXXXX)"
+readonly TMP_DIR="$(mktemp -d /tmp/cyber-dojo-image-builder.XXXXXXX)"
 remove_tmp_dir() { rm -rf "${TMP_DIR}" > /dev/null; }
 trap remove_tmp_dir INT EXIT
 
-script()
+process_cdl_image_src_dir()
 {
-  local -r name=build_test_push_notify.sh
-  local -r local_path="${MY_DIR}/../image_builder/${name}"
-  local -r remote_path="https://raw.githubusercontent.com/cyber-dojo-languages/image_builder/master/${name}"
-  if [ -f "${local_path}" ]; then
-    echo "${local_path}"
+  local -r name=image_build_test_push_notify.sh
+  if [ -x "$(command -v ${name})" ]; then
+    >&2 echo "Found executable ${name} on the PATH"
+    echo "${name}"
   else
-    curl --fail --output "${TMP_DIR}/${name}" --silent "${remote_path}"
+    local -r github=raw.githubusercontent.com
+    local -r org=cyber-dojo-tools
+    local -r repo=image_builder
+    local -r branch=master
+    local -r url="https://${github}/${org}/${repo}/${branch}/${name}"
+    >&2 echo "Did not find executable ${name} on the PATH"
+    >&2 echo "Attempting to curl it from ${url}"
+    curl --fail --output "${TMP_DIR}/${name}" --silent "${url}"
     chmod 700 "${TMP_DIR}/${name}"
     echo "${TMP_DIR}/${name}"
   fi
 }
 
-"$(script)" "${MY_DIR}"
+"$(process_cdl_image_src_dir)" "${MY_DIR}"
