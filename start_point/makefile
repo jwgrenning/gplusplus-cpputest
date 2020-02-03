@@ -17,7 +17,7 @@ INCLUDE_DIRS =\
 	$(CPPUTEST_HOME)/include/ \
 
 CXXFLAGS += -Wall -Wswitch-default -Wfatal-errors
-CXXFLAGS += -std=c++17
-CFLAGS += -std=c99
+CXXFLAGS += -std=c++2a
+CFLAGS += -std=c18
 
 include $(CPPUTEST_HOME)/build/MakefileWorker.mk
