@@ -13,6 +13,8 @@ RUN apt-get update && apt-get install --yes coreutils bash tar file
 
 LABEL maintainer=jon@jaggersoft.com
 
+RUN mkdir /fff
+COPY fff.h /fff
 COPY install.sh .
 RUN ./install.sh
 COPY red_amber_green.rb /usr/local/bin
