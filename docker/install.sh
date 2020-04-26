@@ -4,7 +4,8 @@ apt-get install --yes \
     autoconf \
     automake \
     git \
-    libtool
+    libtool \
+    wget
 
 cd /
 
@@ -17,4 +18,4 @@ cd cpputest/
 autoreconf . -i
 ./configure
 make
-apt-get remove --yes git
+apt-get remove --yes git wget
