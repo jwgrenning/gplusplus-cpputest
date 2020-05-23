@@ -14,7 +14,6 @@
   "filename_extension": [ ".cpp", ".hpp", ".c", ".h" ],
   "max_seconds": 10,
   "tab_size": 4,
-  "hidden_filenames": [ "objs/.*" ],
   "progress_regexs" :
   [
     "Errors \\((\\d)+ failures, (\\d)+ tests, (\\d)+ ran, (\\d)+ checks, (\\d)+ ignored, (\\d)+ filtered out, (\\d)+ ms\\)",
