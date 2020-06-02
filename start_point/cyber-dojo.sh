@@ -1,32 +1,22 @@
 
-# ------------------------------------------------------------------------
-# cyber-dojo returns text files under /sandbox that are
-# created/deleted/changed. In tidy_up you can remove any
-# such files you don't want returned to the browser.
-
-trap tidy_up EXIT
-
-function tidy_up()
+# --------------------------------------------------------------
+# Text files under /sandbox are automatically returned...
+source ~/cyber_dojo_fs_cleaners.sh
+export REPORT_DIR=${CYBER_DOJO_SANDBOX}/report
+function cyber_dojo_enter()
 {
-  delete_dirs objs/
+  # 1. Only return _newly_ generated reports.
+  cyber_dojo_reset_dirs ${REPORT_DIR}
 }
-
-function delete_dirs()
+function cyber_dojo_exit()
 {
-  for dirname in "$@"
-  do
-      rm -rf "${dirname}" 2> /dev/null || true
-  done
+  # 2. Remove text dirs/files we don't want returned.
+  cyber_dojo_delete_dirs objs/ # ...
+  #cyber_dojo_delete_files ...
 }
+cyber_dojo_enter
+trap cyber_dojo_exit EXIT SIGTERM
+# --------------------------------------------------------------
 
-function delete_files()
-{
-  for filename in "$@"
-  do
-      rm "${filename}" 2> /dev/null || true
-  done
-}
-
-# ------------------------------------------------------------------------
 export CPPUTEST_HOME=/cpputest
 make
