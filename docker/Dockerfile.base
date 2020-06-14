@@ -1,4 +1,4 @@
-FROM cyberdojofoundation/gplusplus:4c0dab3c
+FROM cyberdojofoundation/gplusplus:4c0dab3
 LABEL maintainer=jon@jaggersoft.com
 
 RUN mkdir /fff
