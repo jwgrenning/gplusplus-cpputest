@@ -1,4 +1,4 @@
-FROM cyberdojofoundation/gplusplus:95ca4b2
+FROM alpine:latest
 LABEL maintainer=jon@jaggersoft.com
 
 RUN mkdir /fff
