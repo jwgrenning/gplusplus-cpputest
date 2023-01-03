@@ -2,3 +2,6 @@
 !install.sh
 !red_amber_green.rb
 !fff.h
+!gen-xfakes.sh
+!legacy-build.sh
+!tdd-build.sh

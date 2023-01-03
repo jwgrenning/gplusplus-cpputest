@@ -1,0 +1,18 @@
+FROM cyberdojofoundation/gcc:ee0bdcd
+LABEL maintainer=james@wingman-sw.com
+
+COPY install.sh .
+RUN ./install.sh && rm ./install.sh
+COPY red_amber_green.rb /usr/local/bin
+
+RUN mkdir /fff
+COPY fff.h /fff
+RUN mkdir /wingman
+COPY gen-xfakes.sh /wingman
+COPY legacy-build.sh /wingman
+COPY tdd-build.sh /wingman
+COPY install.sh .
+
+ENV TDD_BUILD /wingman/tdd-build.sh
+ENV LEGACY_BUILD /wingman/legacy-build.sh
+ENV CPPUTEST_HOME /cpputest
