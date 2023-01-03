@@ -102,7 +102,7 @@ dashed_line()
 
 get_rid_of_gcov_noise()
 {
-    egrep -v "No branches|filterGcov|^[ 1][ 0-9][0-9]?\.[0-9][0-9]%|See gcov directory|Creating .*\.gcov"  $CAPTURED_GCOV_RUN
+    egrep -v "No branches|filterGcov|^[ 1][ 0-9][0-9]?\.[0-9][0-9]%|See gcov directory|Creating .*\.gcov|Lines execued:"  $CAPTURED_GCOV_RUN
 }
 
 find_printfs()
@@ -144,19 +144,6 @@ print_untested_code()
     fi
 }
 
-foo()
-{
-    [[ "$(untested_code_snip)" != "" ]] && lines="Y" || lines="N"#
-
-    if [ ${status} -eq 0 ]; then
-        if [ "${lines}" == "Y" ] || [ "${branches}" == "Y" ]; then
-            print_untested_code_message $lines $branches
-            mark_test_run_yellow
-            status=$((status+42))
-        fi
-    fi
-}
-
 print_untested_code_message()
 {
     echo
@@ -190,6 +177,7 @@ Try to avoid getting this message by doing TDD!
   Make it pass with the simplest implementation
   Continue
 
+See the exercise hints
 EOF
 
 }
