@@ -1,0 +1,48 @@
+Sending build context to Docker daemon  163.3kB
+Step 1/15 : FROM cyberdojofoundation/gcc:ee0bdcd
+ ---> c3b33e9c5352
+Step 2/15 : LABEL maintainer=james@wingman-sw.com
+ ---> Using cache
+ ---> 83d9bedc5917
+Step 3/15 : COPY install.sh .
+ ---> Using cache
+ ---> 42f4e103b1d9
+Step 4/15 : RUN ./install.sh && rm ./install.sh
+ ---> Using cache
+ ---> cef8f72916bd
+Step 5/15 : COPY red_amber_green.rb /usr/local/bin
+ ---> Using cache
+ ---> bdb753964e11
+Step 6/15 : RUN mkdir /fff
+ ---> Using cache
+ ---> ef7ceb0303b0
+Step 7/15 : COPY fff.h /fff
+ ---> Using cache
+ ---> 319787c7a9ae
+Step 8/15 : RUN mkdir /wingman
+ ---> Using cache
+ ---> 4a18d340a2a3
+Step 9/15 : COPY gen-xfakes.sh /wingman
+ ---> Using cache
+ ---> cf46e5922a31
+Step 10/15 : COPY legacy-build.sh /wingman
+ ---> Using cache
+ ---> cbe8aa498be2
+Step 11/15 : COPY tdd-build.sh /wingman
+ ---> d241f69f29fe
+Step 12/15 : COPY install.sh .
+ ---> bbeb8d0d8fd8
+Step 13/15 : ENV TDD_BUILD /wingman/tdd-build.sh
+ ---> Running in c4269a73df4d
+Removing intermediate container c4269a73df4d
+ ---> dee002dc5573
+Step 14/15 : ENV LEGACY_BUILD /wingman/legacy-build.sh
+ ---> Running in e7d51e9f1f4a
+Removing intermediate container e7d51e9f1f4a
+ ---> 3d68f762a969
+Step 15/15 : ENV CPPUTEST_HOME /cpputest
+ ---> Running in 77d763baece8
+Removing intermediate container 77d763baece8
+ ---> 34f3d4d51056
+Successfully built 34f3d4d51056
+Successfully tagged jwgrenning/wingman-build:latest

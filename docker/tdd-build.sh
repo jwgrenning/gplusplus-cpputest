@@ -14,11 +14,25 @@
 CAPTURED_GCOV_RUN=gcov.out
 MONITORED_BUILD_SPEC=monitored-build.txt
 MONITORED_BUILD="${MONITORED_BUILD:-Y}"
+MONITORED_BRANCHES="${MONITORED_BRANCHES:-Y}"
+TIDY_UP="${TIDY_UP:-Y}"
+
+MARKER_SPECIAL_OUTCOME=outcome.special
+rm -f $MARKER_SPECIAL_OUTCOME
 
 if [ ! -e $MONITORED_BUILD_SPEC ]; then
     echo "Not monitoring coverage"
     MONITORED_BUILD="N"
+else
+    MONITORED_FILE=$(cat $MONITORED_BUILD_SPEC)
+    GCOV_FILE=gcov/$(basename $MONITORED_FILE).gcov
 fi 
+
+if [ MONITORED_BRANCHES = "Y" ]; then
+    export GCOV_ARGS+="-b -c"
+else
+    export GCOV_ARGS+="-c"
+fi
 
 if [ "${SHOW_TEST_NAMES}" = "Y" ]; then
     VERBOSE=vtest
@@ -32,8 +46,12 @@ trap tidy_up EXIT
 
 function tidy_up()
 {
-  delete_files "*.out" "*_tests.txt" $CAPTURED_GCOV_RUN
-  delete_dirs objs/ lib/ gcov/
+    if [ "$TIDY_UP" = "Y" ]; then
+        delete_files "*.out" "*_tests.txt" $CAPTURED_GCOV_RUN
+        delete_dirs gcov/
+    fi
+
+  delete_dirs objs/ lib/
 }
 
 function delete_dirs()
@@ -55,15 +73,8 @@ function delete_files()
 build()
 {
     if [ "$GCOV" == "Y" ]; then
-        export GCOV_ARGS+="-b -c"
         make_gcov
     elif [ "$MONITORED_BUILD" == "Y" ]; then
-        MONITORED_FILE=$(cat $MONITORED_BUILD_SPEC)
-        GCOV_FILE=gcov/$(basename $MONITORED_FILE).gcov
-        extension="${MONITORED_FILE##*.}"
-        if [ $extension == "c" ]; then
-            export GCOV_ARGS+="-b -c"
-        fi
         monitored_build
     else
         make $VERBOSE
@@ -85,14 +96,9 @@ monitored_build()
     if [ "$?" == "0" ]; then
         get_rid_of_gcov_noise
         print_untested_code
-        print_lines_with_printf
     fi
+    print_lines_with_printf
     return $status
-}
-
-mark_test_run_yellow()
-{
-    sed -i '' -e's/^OK /OK, But so what! /' test.out
 }
 
 dashed_line()
@@ -102,12 +108,12 @@ dashed_line()
 
 get_rid_of_gcov_noise()
 {
-    egrep -v "No branches|filterGcov|^[ 1][ 0-9][0-9]?\.[0-9][0-9]%|See gcov directory|Creating .*\.gcov|Lines execued:"  $CAPTURED_GCOV_RUN
+    egrep -v "No branches|filterGcov|^[ 1][ 0-9][0-9]?\.[0-9][0-9]%|See gcov directory|Creating .*\.gcov|Lines executed:"  $CAPTURED_GCOV_RUN
 }
 
 find_printfs()
 {
-    grep -n "^ *printf(.*);" ${MONITORED_FILE}
+    grep -n "^ *printf(.*);\|^ *cout *<<\|^ *std::cout *<<" ${MONITORED_FILE}
 }
 
 untested_code_lines()
@@ -138,8 +144,8 @@ makeup_for_gcov_not_returing_status()
 print_untested_code()
 {
     if [[ "$(untested_code_lines)" != "" ]]; then
+        echo "You have untested code." >>$MARKER_SPECIAL_OUTCOME
         print_untested_code_message
-        mark_test_run_yellow
         status=$((status+42))
     fi
 }
@@ -160,7 +166,7 @@ print_way_out()
 {
     cat <<EOF
     
-You get this message when you write code that is not yet needed by
+You get this message when you write code that is not yet exercised by
 your current test cases.
 
 The coverage report below may show
@@ -195,8 +201,7 @@ print_lines_with_printf()
     if [ "${printfs}" != "" ]; then
         print_found_printf_message "${printfs}"
         dashed_line
-        mark_test_run_yellow
-        status=$((status+100))
+        echo "Should not need debug printing: ${printfs}" >$MARKER_SPECIAL_OUTCOME
     fi
 }
 
@@ -204,25 +209,29 @@ print_found_printf_message()
 {
     cat <<EOF
 
-printf found on these lines:
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!                                                        !!
+!!                Are you debugging??                     !!
+!!                                                        !!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+During these exercises, try not to use printed output.
+
+See ${MONITORED_FILE}
 
 $1
 
-Do you really need printf now? Are you debugging?
+Not that you'll never need printed output to find a bug, 
+but I'd like you to work in small steps where you usually
+only have one thing wrong at a time.
 
-Not that you'll never need printf to find a bug, but I'd like you to
-work in small steps where you usually only have one thing wrong at a
-time.
-
-I suspect you wrote too much code. TDD uses small deliberate steps
-to help avoid debugging.
-
-Now, I suggest you revert you code to the last time it worked and
+You might revert you code to the last time it worked and
 try again.  You probably won't make the same mistake.
 
-To revert your code to any prior test run, click a previous traffic signal
-(a green one preferably), then choose revert.  At any rate, you'll need to
-get rid of printf to get back to green.
+To revert your code to any prior test run, click a previous
+traffic signal (a green one preferably), then choose revert.
+At any rate, you'll need to get rid of the printing to get
+rid of this message.
 
 EOF
 
@@ -230,6 +239,7 @@ EOF
 
 core_dumped_fault_help()
 {
+    echo "You have a core dump." >$MARKER_SPECIAL_OUTCOME
     cat error.out <<EOF
 
 Running tests again with verbose enabled."
@@ -242,7 +252,7 @@ EOF
 
 get_rid_of_make_noise()
 {
-    egrep -v 'rm -f|@: not found|tput: not found'
+        egrep -v 'rm -f|@: not found|tput: not found'
 }
 
 output_for_test_run()
@@ -251,13 +261,12 @@ output_for_test_run()
         core_dumped_fault_help >seg.out 2>seg-error.out
         cat seg.out seg-error.out
     else
-        cat test.out error.out | get_rid_of_make_noise
+        cat test.out error.out
     fi
 }
 
 build >test.out 2>error.out
 status=$?
-output_for_test_run
-
+output_for_test_run | get_rid_of_make_noise
 
 exit $status
