@@ -1,10 +1,8 @@
 
 lambda { |stdout,stderr,status|
   output = stdout + stderr
-  if (/Errors \((\d+) failures, (\d+) tests/.match(output)
-      or output.include?('(core dumped)'))
-    return :red
-  end
+  return :red if (/Errors \((\d+) failures, (\d+) tests/.match(output))
+  return :red if output.include?('(core dumped)')
   return :green if /OK \((\d+) tests, (\d+) ran/.match(output)
   return :amber
 }

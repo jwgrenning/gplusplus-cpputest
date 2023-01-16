@@ -12,37 +12,36 @@ Step 4/15 : RUN ./install.sh && rm ./install.sh
  ---> cef8f72916bd
 Step 5/15 : COPY red_amber_green.rb /usr/local/bin
  ---> Using cache
- ---> bdb753964e11
+ ---> f0172ae2d3ce
 Step 6/15 : RUN mkdir /fff
  ---> Using cache
- ---> ef7ceb0303b0
+ ---> 606c49664dbf
 Step 7/15 : COPY fff.h /fff
  ---> Using cache
- ---> 319787c7a9ae
+ ---> a76745ccd16c
 Step 8/15 : RUN mkdir /wingman
  ---> Using cache
- ---> 4a18d340a2a3
+ ---> 06643add347b
 Step 9/15 : COPY gen-xfakes.sh /wingman
  ---> Using cache
- ---> cf46e5922a31
+ ---> 162ebfe3f0eb
 Step 10/15 : COPY legacy-build.sh /wingman
  ---> Using cache
- ---> cbe8aa498be2
+ ---> a46a385e83a5
 Step 11/15 : COPY tdd-build.sh /wingman
- ---> d241f69f29fe
+ ---> Using cache
+ ---> 4d70338f7f6e
 Step 12/15 : COPY install.sh .
- ---> bbeb8d0d8fd8
+ ---> Using cache
+ ---> c24b7f0e2ae2
 Step 13/15 : ENV TDD_BUILD /wingman/tdd-build.sh
- ---> Running in c4269a73df4d
-Removing intermediate container c4269a73df4d
- ---> dee002dc5573
+ ---> Using cache
+ ---> b25da53f2e2f
 Step 14/15 : ENV LEGACY_BUILD /wingman/legacy-build.sh
- ---> Running in e7d51e9f1f4a
-Removing intermediate container e7d51e9f1f4a
- ---> 3d68f762a969
+ ---> Using cache
+ ---> 82d834be8b53
 Step 15/15 : ENV CPPUTEST_HOME /cpputest
- ---> Running in 77d763baece8
-Removing intermediate container 77d763baece8
- ---> 34f3d4d51056
-Successfully built 34f3d4d51056
+ ---> Using cache
+ ---> 1a438df25ec6
+Successfully built 1a438df25ec6
 Successfully tagged jwgrenning/wingman-build:latest
