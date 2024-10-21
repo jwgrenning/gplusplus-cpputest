@@ -1,8 +1,5 @@
 #!/bin/bash -Eeu
 
-apk add --no-cache gcc g++ musl-dev make
-apk add --no-cache autoconf automake git libtool
-
 cd /
 
 wget https://github.com/cpputest/cpputest/releases/download/latest-passing-build/cpputest-latest.tar.gz
@@ -15,4 +12,4 @@ autoreconf . -i
 ./configure
 make
 
-apk del git
+cd

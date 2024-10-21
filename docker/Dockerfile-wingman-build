@@ -1,18 +1,25 @@
 FROM cyberdojofoundation/gcc:ee0bdcd
 LABEL maintainer=james@wingman-sw.com
 
-COPY install.sh .
-RUN ./install.sh && rm ./install.sh
+RUN apk add --no-cache gcc g++ musl-dev make \
+			autoconf automake git libtool unzip
+
+COPY install-cpputest.sh .
+RUN ./install-cpputest.sh && rm ./install-cpputest.sh
+
+COPY install-legacy-build.sh .
+RUN ./install-legacy-build.sh && rm ./install-legacy-build.sh
+
 COPY red_amber_green.rb /usr/local/bin
 
+# Don't forget to add new files to .dockerignore
 RUN mkdir /fff
 COPY fff.h /fff
 RUN mkdir /wingman
-COPY gen-xfakes.sh /wingman
-COPY legacy-build.sh /wingman
 COPY tdd-build.sh /wingman
-COPY install.sh .
 
-ENV TDD_BUILD /wingman/tdd-build.sh
-ENV LEGACY_BUILD /wingman/legacy-build.sh
-ENV CPPUTEST_HOME /cpputest
+ENV TDD_BUILD=/wingman/tdd-build.sh
+ENV LEGACY_BUILD=/legacy-build/legacy-build.sh
+ENV CPPUTEST_HOME=/cpputest
+
+RUN apk del git unzip

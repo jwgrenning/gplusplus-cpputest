@@ -1,9 +1,11 @@
 #!/bin/bash
 TAG=jwgrenning/wingman-build
-#TAG=jwgrenning/wingman-gcc-x
 if [[ "$1" != "" ]]; then
 	TAG=$TAG-$1
 fi
+# DOCKER_HUB_USER_ID=jwgrenning
+echo Building $TAG
+
 time sudo docker build -f Dockerfile-wingman-build \
 		--tag $TAG \
 		. 2>&1 | tee docker-build.log

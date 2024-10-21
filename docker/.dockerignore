@@ -2,6 +2,7 @@
 !install.sh
 !red_amber_green.rb
 !fff.h
-!gen-xfakes.sh
-!legacy-build.sh
+!install-cpputest.sh
+!install-legacy-build.sh
 !tdd-build.sh
+

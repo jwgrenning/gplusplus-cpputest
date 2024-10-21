@@ -1,47 +1,117 @@
-Sending build context to Docker daemon  163.3kB
-Step 1/15 : FROM cyberdojofoundation/gcc:ee0bdcd
- ---> c3b33e9c5352
-Step 2/15 : LABEL maintainer=james@wingman-sw.com
- ---> Using cache
- ---> 83d9bedc5917
-Step 3/15 : COPY install.sh .
- ---> Using cache
- ---> 42f4e103b1d9
-Step 4/15 : RUN ./install.sh && rm ./install.sh
- ---> Using cache
- ---> cef8f72916bd
-Step 5/15 : COPY red_amber_green.rb /usr/local/bin
- ---> Using cache
- ---> f0172ae2d3ce
-Step 6/15 : RUN mkdir /fff
- ---> Using cache
- ---> 606c49664dbf
-Step 7/15 : COPY fff.h /fff
- ---> Using cache
- ---> a76745ccd16c
-Step 8/15 : RUN mkdir /wingman
- ---> Using cache
- ---> 06643add347b
-Step 9/15 : COPY gen-xfakes.sh /wingman
- ---> Using cache
- ---> 162ebfe3f0eb
-Step 10/15 : COPY legacy-build.sh /wingman
- ---> Using cache
- ---> a46a385e83a5
-Step 11/15 : COPY tdd-build.sh /wingman
- ---> Using cache
- ---> 4d70338f7f6e
-Step 12/15 : COPY install.sh .
- ---> Using cache
- ---> c24b7f0e2ae2
-Step 13/15 : ENV TDD_BUILD /wingman/tdd-build.sh
- ---> Using cache
- ---> b25da53f2e2f
-Step 14/15 : ENV LEGACY_BUILD /wingman/legacy-build.sh
- ---> Using cache
- ---> 82d834be8b53
-Step 15/15 : ENV CPPUTEST_HOME /cpputest
- ---> Using cache
- ---> 1a438df25ec6
-Successfully built 1a438df25ec6
-Successfully tagged jwgrenning/wingman-build:latest
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile-wingman-build
+#1 transferring dockerfile: 693B done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/cyberdojofoundation/gcc:ee0bdcd
+#2 DONE 0.0s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 142B done
+#3 DONE 0.0s
+
+#4 [ 1/12] FROM docker.io/cyberdojofoundation/gcc:ee0bdcd
+#4 DONE 0.0s
+
+#5 [internal] load build context
+#5 transferring context: 448B done
+#5 DONE 0.0s
+
+#6 [ 3/12] COPY install-cpputest.sh .
+#6 CACHED
+
+#7 [ 2/12] RUN apk add --no-cache gcc g++ musl-dev make 			autoconf automake git libtool unzip
+#7 CACHED
+
+#8 [ 4/12] RUN ./install-cpputest.sh && rm ./install-cpputest.sh
+#8 CACHED
+
+#9 [ 5/12] COPY install-legacy-build.sh .
+#9 DONE 0.0s
+
+#10 [ 6/12] RUN ./install-legacy-build.sh && rm ./install-legacy-build.sh
+#10 0.190 Connecting to github.com (140.82.114.3:443)
+#10 0.710 Connecting to codeload.github.com (140.82.114.10:443)
+#10 0.958 saving to 'master.zip'
+#10 1.007 master.zip           100% |********************************| 26285  0:00:00 ETA
+#10 1.007 'master.zip' saved
+#10 1.009 Archive:  master.zip
+#10 1.009 b49073876533cb014dce06ca94d0c089a9109e7f
+#10 1.009    creating: legacy-build-master/
+#10 1.009  extracting: legacy-build-master/.gitignore  
+#10 1.009   inflating: legacy-build-master/.gitmodules  
+#10 1.009   inflating: legacy-build-master/LICENSE  
+#10 1.010   inflating: legacy-build-master/README.md  
+#10 1.010   inflating: legacy-build-master/gen-xfakes.sh  
+#10 1.010   inflating: legacy-build-master/gen-xfakes.sublime-project  
+#10 1.010   inflating: legacy-build-master/legacy-build.sh  
+#10 1.010   inflating: legacy-build-master/legacy-suggest.sh  
+#10 1.010    creating: legacy-build-master/shunit2/
+#10 1.011    creating: legacy-build-master/test/
+#10 1.011   inflating: legacy-build-master/test/all-tests.sh  
+#10 1.011    creating: legacy-build-master/test/example-output/
+#10 1.011   inflating: legacy-build-master/test/example-output/clang-link-errors.txt  
+#10 1.011   inflating: legacy-build-master/test/example-output/gcc-link-error-legacy.txt  
+#10 1.011   inflating: legacy-build-master/test/example-output/gcc-link-errors.txt  
+#10 1.011   inflating: legacy-build-master/test/example-output/gcc-missing-include-partial-path.txt  
+#10 1.011   inflating: legacy-build-master/test/example-output/gcc-missing-include-path.txt  
+#10 1.011   inflating: legacy-build-master/test/example-output/gcc-other-error.txt  
+#10 1.011   inflating: legacy-build-master/test/example-output/gcc-undeclared-error.txt  
+#10 1.011   inflating: legacy-build-master/test/example-output/gcc-warning.txt  
+#10 1.011   inflating: legacy-build-master/test/example-output/vs-link-errors.txt  
+#10 1.012    creating: legacy-build-master/test/golden/
+#10 1.012   inflating: legacy-build-master/test/golden/xfakes-clang-c.c  
+#10 1.012   inflating: legacy-build-master/test/golden/xfakes-clang-cpp-globals.cpp  
+#10 1.012   inflating: legacy-build-master/test/golden/xfakes-clang-cpp.cpp  
+#10 1.012   inflating: legacy-build-master/test/golden/xfakes-clang-sorted-undefines.txt  
+#10 1.012   inflating: legacy-build-master/test/golden/xfakes-gcc-c.c  
+#10 1.012   inflating: legacy-build-master/test/golden/xfakes-gcc-cpp-globals.cpp  
+#10 1.012   inflating: legacy-build-master/test/golden/xfakes-gcc-cpp.cpp  
+#10 1.012   inflating: legacy-build-master/test/golden/xfakes-gcc-sorted-undefines.txt  
+#10 1.012   inflating: legacy-build-master/test/golden/xfakes-vs-c.c  
+#10 1.012   inflating: legacy-build-master/test/golden/xfakes-vs-cpp-globals.cpp  
+#10 1.013   inflating: legacy-build-master/test/golden/xfakes-vs-cpp.cpp  
+#10 1.013   inflating: legacy-build-master/test/golden/xfakes-vs-sorted-undefines.txt  
+#10 1.013   inflating: legacy-build-master/test/test-gen-xfakes.sh  
+#10 1.013   inflating: legacy-build-master/test/test-legacy-suggest.sh  
+#10 1.020 For rebuild legacy-build update 10/21/2024 2x
+#10 DONE 1.0s
+
+#11 [ 7/12] COPY red_amber_green.rb /usr/local/bin
+#11 DONE 0.0s
+
+#12 [ 8/12] RUN mkdir /fff
+#12 DONE 0.2s
+
+#13 [ 9/12] COPY fff.h /fff
+#13 DONE 0.0s
+
+#14 [10/12] RUN mkdir /wingman
+#14 DONE 0.2s
+
+#15 [11/12] COPY tdd-build.sh /wingman
+#15 DONE 0.0s
+
+#16 [12/12] RUN apk del git unzip
+#16 0.292 WARNING: Ignoring http://dl-cdn.alpinelinux.org/alpine/edge/main: No such file or directory
+#16 0.357 (1/10) Purging git-perl (2.36.6-r0)
+#16 0.357 (2/10) Purging perl-git (2.36.6-r0)
+#16 0.358 (3/10) Purging git (2.36.6-r0)
+#16 0.367 (4/10) Purging perl-error (0.17029-r1)
+#16 0.367 (5/10) Purging unzip (6.0-r9)
+#16 0.368 (6/10) Purging libcurl (8.5.0-r0)
+#16 0.368 (7/10) Purging ca-certificates (20240226-r0)
+#16 0.374 Executing ca-certificates-20240226-r0.post-deinstall
+#16 0.394 (8/10) Purging brotli-libs (1.0.9-r6)
+#16 0.394 (9/10) Purging nghttp2-libs (1.47.0-r2)
+#16 0.394 (10/10) Purging pcre2 (10.42-r0)
+#16 0.394 Executing busybox-1.35.0-r13.trigger
+#16 0.401 OK: 295 MiB in 69 packages
+#16 DONE 0.5s
+
+#17 exporting to image
+#17 exporting layers 0.1s done
+#17 writing image sha256:cceea0949c9bf7a5528486ba152c7528dd80eccf118968f611d14d4416bc7284 done
+#17 naming to docker.io/jwgrenning/wingman-build-v2.0 done
+#17 DONE 0.1s
